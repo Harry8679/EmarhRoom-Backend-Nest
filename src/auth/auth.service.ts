@@ -12,6 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  // Register
   async register(
     firstName: string,
     lastName: string,
@@ -33,6 +34,18 @@ export class AuthService {
     return this.generateToken(user);
   }
 
+  // Login
+  async login(email: string, password: string) {
+    const user = await this.userModel.findOne({ email });
+    if (!user) throw new UnauthorizedException('Invalid credentials');
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw new UnauthorizedException('Invalid credentials');
+
+    return this.generateToken(user);
+  }
+
+  // Generate Token
   generateToken(user: UserDocument) {
     const payload = { sub: user._id, email: user.email, role: user.role };
     return { access_token: this.jwtService.sign(payload) };
