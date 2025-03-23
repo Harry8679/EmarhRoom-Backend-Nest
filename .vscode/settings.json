@@ -1,0 +1,9 @@
+{
+    "eslint.workingDirectories": ["./"],
+    "eslint.validate": ["typescript"],
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.exclude": {
+      "**/.eslintrc.js": true,
+      "**/eslint.config.mjs": true
+    }
+  }  
