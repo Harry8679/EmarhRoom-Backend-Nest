@@ -27,4 +27,10 @@ export class AuthController {
     const { email, password } = loginDto;
     return this.authService.login(email, password);
   }
+
+  @Post('logout')
+  logout() {
+    // Côté serveur, il n'y a rien à gérer si tu utilises JWT stateless
+    return { message: 'User logged out' };
+  }
 }
